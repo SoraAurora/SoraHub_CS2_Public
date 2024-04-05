@@ -1,5 +1,6 @@
-![image](https://github.com/SoraAurora/SoraHub_CS2/assets/91508322/af857ec6-39d2-494c-a9f4-acdde8162c4b)
-![image](https://github.com/SoraAurora/SoraHub_CS2/assets/91508322/0360c7a1-5aaf-4e53-9a11-41b6202f0ede)
+![image](https://github.com/SoraAurora/SoraHub_CS2_Public/assets/91508322/11aa6ea9-92af-4269-b120-b456da31b1e0)
+
+![image](https://github.com/SoraAurora/SoraHub_CS2_Public/assets/91508322/41cc94b4-d369-4f6e-b54e-a74c957ef42b)
 
 
 
