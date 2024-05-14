@@ -26,5 +26,6 @@ namespace SoraHub_CS2
 
         public string playername { get; set; }
             
+        public static string MapData { get; set; }
     }
 }

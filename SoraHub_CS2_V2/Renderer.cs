@@ -2,12 +2,14 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using ClickableTransparentOverlay;
 using ImGuiNET;
+using Newtonsoft.Json;
 
 
 namespace SoraHub_CS2
@@ -15,7 +17,7 @@ namespace SoraHub_CS2
     public class Renderer : Overlay
     {
 
-
+        private Radar radar = new Radar();
 
         // screensizes
         public Vector2 screenSize = new Vector2(1920, 1080);
@@ -25,6 +27,10 @@ namespace SoraHub_CS2
         private Entity localplayer = new Entity();
         private readonly object entityLock = new object();
 
+        private List<int> teamlist = new List<int>();
+        private List<Vector3> positionlist = new List<Vector3>();
+        private List<float[]> positionArray = new List<float[]>();
+        private List<string> nameArray = new List<string>();
         // DrawList
 
         ImDrawListPtr drawList;
@@ -48,7 +54,7 @@ namespace SoraHub_CS2
         protected override void Render()
         {
             // ImGui Menu
-            ImGui.Begin("SoraHub CS2 V1.3_Beta_Edition");
+            ImGui.Begin("SoraHub CS2 V1.4_Beta_Edition");
             if (ImGui.BeginTabBar("Tabs"))
             {
                 if (ImGui.BeginTabItem("Walls"))
@@ -71,13 +77,9 @@ namespace SoraHub_CS2
                             ImGui.ColorPicker4("Name Color", ref nameColor);
                     }
 
-
-
-
                     ImGui.EndTabItem();
                 }
             }
-
 
             //draw overlay
 
@@ -86,20 +88,23 @@ namespace SoraHub_CS2
 
             if (enableESP)
             {
-                foreach(var entity in entities)
+
+                foreach (var entity in entities)
                 {
                     // check if entity on screen
-                    if(EntityOnScreen(entity))
+                    if (EntityOnScreen(entity))
                     {
                         DrawHealthBar(entity);
-                        DrawName(entity , 15); // entity , offsets
+                        DrawName(entity, 15); // entity , offsets
                         DrawBox(entity);
                         DrawLine(entity);
                     }
                 }
+               
             }
-
         }
+
+
 
         // check if inside screen
 

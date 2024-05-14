@@ -15,6 +15,7 @@ Console.WriteLine($"[SUCESS] Found {clientdll} !");
 
 
 Renderer renderer = new Renderer();
+Radar radar = new Radar();
 
 Thread renderThread = new Thread(new ThreadStart(renderer.Start().Wait));
 Console.WriteLine("[INFO] Initalizing Renderer!");
@@ -29,6 +30,7 @@ Entity localplayer = new Entity();
 int dwEntityList = 0x18C1DB8;
 int dwViewMatrix = 0x19231B0;
 int dwLocalPlayerPawn = 0x17361E8;
+
 Console.WriteLine("[INFO] Initalized Offets.cs!");
 
 // Client.dll.cs
@@ -40,9 +42,18 @@ int m_vecViewOffset = 0xC58;
 int m_iHealth = 0x334;
 int m_iszPlayerName = 0x638;
 Console.WriteLine("[INFO] Initalized Client.dll.cs!");
+
+// Manually Found Offset - MAP
+int mapoffset = 0x16E6CFC;
+
+
 // ESP Loop
 
 Console.WriteLine("[INFO] Started Reading Memory...");
+
+
+
+
 while (true)
 {
     // Wipe Lists then repopulate it like how i populate jess 
@@ -62,6 +73,11 @@ while (true)
 
     localplayer.team = rw_calls.ReadInt(localPlayerPawn, m_iTeamNum);
 
+    // get map
+
+    string map = rw_calls.ReadString(client , mapoffset , 7).Split("\0")[0];
+
+    
     // loop thr entity lists
     for (int i = 0; i < 65; i++)
     {
@@ -96,9 +112,12 @@ while (true)
 
         Entity entity = new Entity();
 
+        //map
+        //string map = rw_calls.ReadString(client , mapoffset , 16).Split("\0")[0];
+
         // entity lists 
         entity.playername = rw_calls.ReadString(currentController, m_iszPlayerName, 16).Split("\0")[0]; // read first 16 characters of player
-
+        
         entity.team = rw_calls.ReadInt(currentPawn, m_iTeamNum);
         entity.health = rw_calls.ReadInt(currentPawn, m_iHealth);
         entity.position = rw_calls.ReadVec(currentPawn, m_vOldOrigin);
@@ -108,10 +127,13 @@ while (true)
 
         entities.Add(entity);
 
+
     }
     // Update renderer data
     renderer.UpdateLocalPlayer(localplayer);
     renderer.UpdateEntities(entities);
+    radar.UpdateEntities(entities , map);
+
 
     Thread.Sleep(20);
 
