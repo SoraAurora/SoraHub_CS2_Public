@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Continuous Image Refresh</title>
+</head>
+<body>
+    <iframe id="imageFrame" src="./static/overlay_image.png" width="1000" height="1000" ></iframe>
+
+    <script>
+        function refreshImage() {
+            var iframe = document.getElementById("imageFrame");
+            iframe.src = iframe.src;
+        }
+
+        setInterval(refreshImage, 400);
+    </script>
+</body>
+</html>
