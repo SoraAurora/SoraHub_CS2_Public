@@ -18,8 +18,6 @@ https://youtu.be/Io5A39jSYiQ
 V1.4 - 4/4/2024<br />
 - Web-Based Radar (Use NGROK/AWS/DigitalOcean to host Backend.py)
 
-Notes :  Will not be released :D you can open an issue and ill be glad to explain how i did it but will not be revealing source code..
-
 V1.3 - 3/4/2024<br />
 - Updated Offsets<br />
 - Added Name ESP<br />
