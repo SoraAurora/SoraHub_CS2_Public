@@ -79,7 +79,8 @@ public class Radar
 
 
         //Console.WriteLine(jsonData);
-        string ipAddress = "34.126.70.57";
+        // Ip address of server
+        string ipAddress = "0.0.0.0"; 
         int port = 80;
 
         await SendJsonData(ipAddress, port, jsonData);
